@@ -35,12 +35,8 @@ app.post("/api/courses", (req, res) => {
     // }
 
     const { error } = validateCourse(req.body);
-    if(error) {
+    if(error) return res.status(400).send(result.error.details[0].message);
         // 400 is bad request.
-        res.status(400).send(result.error.details[0].message);
-        return;
-    }
-
     const course = {
         id: courses.length+1,
         title: req.body.title
@@ -58,15 +54,20 @@ app.put("/api/courses/:id", (req, res) =>{
     //validate
 
     const { error } = validateCourse(req.body);
-    if(error) {
-        // 400 is bad request.
-        res.status(400).send(result.error.details[0].message);
-        return;
-    }
-
+    if(error) return res.status(400).send(result.error.details[0].message);
+    // 400 is bad request.
     //Update the courses.
     course.title = req.body.title;
     res.send(course);
+
+});
+
+app.delete("/api/courses/:id", (req, res) => {
+    const course = courses.find(x => x.id === parseInt(req.params.id));
+    if (!course) res.status(404).send(`no course found with id = ${req.params.id}`)
+    const index = courses.indexOf(course);
+    courses.splice(index,1);
+    res.send(course)
 
 });
 

@@ -34,3 +34,8 @@ Content-Type: application/json
 {
     "title": "tenth new Courses"
 }
+
+###
+
+delete http://localhost:3000/api/courses/2
+
