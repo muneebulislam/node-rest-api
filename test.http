@@ -1,0 +1,36 @@
+get http://localhost:3000
+
+###
+
+get http://localhost:3000/api/courses
+
+###
+
+get http://localhost:3000/api/courses/5
+
+###
+
+post http://localhost:3000/api/courses
+Content-Type: application/json
+
+{
+   "title": "new Courses"
+}
+
+###
+
+put http://localhost:3000/api/courses/1
+Content-Type: application/json
+
+{
+    "title": "Another new Courses"
+}
+
+###
+
+put http://localhost:3000/api/courses/10
+Content-Type: application/json
+
+{
+    "title": "tenth new Courses"
+}
