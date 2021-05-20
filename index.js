@@ -21,7 +21,7 @@ app.get("/api/courses", (req, res) => {
 
 app.get("/api/courses/:id", (req, res) => {
     const course = courses.find(x => x.id === parseInt(req.params.id));
-    if (!course) res.status(404).send(`no course found with id = ${req.params.id}`)
+    if (!course) return res.status(404).send(`no course found with id = ${req.params.id}`)
     res.send(course);
 });
 
@@ -64,10 +64,12 @@ app.put("/api/courses/:id", (req, res) =>{
 
 app.delete("/api/courses/:id", (req, res) => {
     const course = courses.find(x => x.id === parseInt(req.params.id));
-    if (!course) res.status(404).send(`no course found with id = ${req.params.id}`)
+    if (!course) return res.status(404).send(`no course found with id = ${req.params.id}`)
     const index = courses.indexOf(course);
     courses.splice(index,1);
-    res.send(course)
+    // We need to make a string of the object to send.
+    courseString = JSON.stringify(course);
+    res.send(`${courseString}  is deleted!`)
 
 });
 
